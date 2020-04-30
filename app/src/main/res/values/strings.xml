@@ -49,6 +49,10 @@
 
     <string name="home">Back to Home</string>
 
+    <string name="amazon_url">https://www.amazon.com/s?k=</string>
+    <string name="gmaps_stores_uri">geo:0,0?q=general+stores+near+me</string>
+    <string name="gmaps_package">com.google.android.apps.maps</string>
+
     <string-array name="results_3">
         <item name="result_3_pos" translatable="false">You can shop </item>
         <item name="result_3_neg" translatable="false">You should shop </item>

@@ -4,6 +4,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.transition.TransitionManager;
 import android.util.Log;
@@ -13,12 +14,14 @@ import android.widget.TextView;
 
 import com.zachl.restock.R;
 import com.zachl.restock.entities.managers.HazardManager;
+import com.zachl.restock.entities.managers.Manager;
 import com.zachl.restock.entities.math.Function;
 import com.zachl.restock.entities.runnables.BufferRunnable;
 import com.zachl.restock.entities.runnables.UpdateRunnable;
 import com.zachl.restock.entities.wrappers.ManagedActivity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ResultsActivity extends ManagedActivity{
     private int[] answers = new int[6];
@@ -130,5 +133,23 @@ public class ResultsActivity extends ManagedActivity{
             }
         }, 50);
         updateR.start(calcs[resultI]);
+    }
+
+    public void openAmazon() {
+        String itemName = Manager.resources[Manager.getTypeIndex(type)];
+        String[] tokens = itemName.split(" ");
+        String plusSeparated = tokens[0];
+        for(int i = 1; i < tokens.length; i++) {
+            plusSeparated +="+" + tokens[i];
+        }
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(R.string.amazon_url + plusSeparated));
+        startActivity(browserIntent);
+    }
+
+    public void openGMaps() {
+        Uri gmmIntentUri = Uri.parse(getString(R.string.gmaps_stores_uri));
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        mapIntent.setPackage(getString(R.string.gmaps_package));
+        startActivity(mapIntent);
     }
 }

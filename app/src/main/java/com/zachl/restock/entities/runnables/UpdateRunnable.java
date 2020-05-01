@@ -12,7 +12,7 @@ public class UpdateRunnable {
 
     private Updater updater;
     private Timer timer;
-    private int refresh;
+    public int refresh;
     private boolean running;
 
     public UpdateRunnable(Updater updater){

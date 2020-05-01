@@ -8,6 +8,7 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -45,7 +46,6 @@ public class ManagedActivity extends AppCompatActivity {
         adjustFontScale(getResources().getConfiguration());
         //analyticsInit();
     }
-
     private void analyticsInit(){
         firebaseAnalytics = FirebaseAnalytics.getInstance(this);
     }

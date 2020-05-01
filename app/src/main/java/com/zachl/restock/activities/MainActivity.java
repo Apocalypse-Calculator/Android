@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity{
      */
     public static final String EXTRA = "COM.ZACHL.CALCULATOR.TYPE";
     private UpdateRunnable updateR;
-    private ImageButton tp, hs, wb, desc;
+    private ImageButton tp, hs, wb;
     private TextView descT;
     private ConstraintLayout ui;
 
@@ -45,10 +45,6 @@ public class MainActivity extends AppCompatActivity{
         tp = findViewById(R.id.tp_button);
         hs = findViewById(R.id.hs_button);
         wb = findViewById(R.id.wb_button);
-        desc = findViewById(R.id.header);
-        descT = findViewById(R.id.desc_2);
-
-        descSrces = new String[]{getString(R.string.description_2_1), getString(R.string.description_2_2)};
         View.OnTouchListener buttonL = new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -68,7 +64,6 @@ public class MainActivity extends AppCompatActivity{
         tp.setOnTouchListener(buttonL);
         hs.setOnTouchListener(buttonL);
         wb.setOnTouchListener(buttonL);
-        //desc.setOnTouchListener(buttonL);
 
         /*ExpandingButton tpB = new ExpandingButton(getApplicationContext(), tp, new ExpandingButton.Triggerable() {
             @Override

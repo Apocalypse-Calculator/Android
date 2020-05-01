@@ -18,6 +18,8 @@ import com.zachl.restock.entities.runnables.BufferRunnable;
 import com.zachl.restock.entities.runnables.UpdateRunnable;
 import com.zachl.restock.entities.wrappers.ManagedActivity;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class ResultsActivity extends ManagedActivity{
@@ -110,8 +112,10 @@ public class ResultsActivity extends ManagedActivity{
         updateR = new UpdateRunnable(new UpdateRunnable.Updater() {
             @Override
             public void update(View view) {
-                if(Integer.valueOf(((TextView)view).getText().toString()) < results[resultI]){
+                if(Integer.valueOf(((TextView)view).getText().toString()) < (int)results[resultI]){
                     final View fview = view;
+                    //if(Integer.valueOf(((TextView)fview).getText().toString()) >= results[resultI] - 10)
+                        //updateR.refresh += 400;
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -121,14 +125,21 @@ public class ResultsActivity extends ManagedActivity{
                 }
                 else{
                     updateR.end();
-                    ((TextView)view).setText("" + (int)results[resultI]);
+                    final View fview = view;
+                    final int result = (int)results[resultI];
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            ((TextView)fview).setText("" + result);
+                        }
+                    });
                     if(resultI < 1) {
                         resultI++;
                         textChange();
                     }
                 }
             }
-        }, 50);
+        }, 10);
         updateR.start(calcs[resultI]);
     }
 }

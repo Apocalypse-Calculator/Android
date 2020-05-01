@@ -10,8 +10,8 @@
 
     <ImageButton
         android:id="@+id/header"
-        android:layout_width="427dp"
-        android:layout_height="514dp"
+        android:layout_width="0dp"
+        android:layout_height="340dp"
         android:layout_marginBottom="600dp"
         android:background="@drawable/main_header"
         android:scaleType="fitXY"

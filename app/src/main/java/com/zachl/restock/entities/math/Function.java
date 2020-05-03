@@ -40,7 +40,7 @@ public class Function {
         double[] needs = new double[3];
         //DAYS SURVIVED
         if(eq.intensity){
-            variables[4] *= variables[3];
+            variables[4] *= variables[2];
             if(variables[5] != 0){
                 /**
                  * If the user DIDNT enter ounces; this could be temporary as its not scalable but as of now water bottles appear to be the only intensity-based resource.

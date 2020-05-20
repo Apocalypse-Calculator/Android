@@ -8,6 +8,7 @@
     <string name="type_mod" translatable="false">type</string>
     <string name="color_mod" translatable="false">color</string>
     <string name="hazard_mod" translatable="false">hazard</string>
+    <string name="button_mod" translatable="false">bt</string>
 
     <string name="title" translatable="false">RESTOCK</string>
     <string name="description_1">Plan ahead.</string>

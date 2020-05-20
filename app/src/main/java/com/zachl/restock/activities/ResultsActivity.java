@@ -84,7 +84,7 @@ public class ResultsActivity extends ManagedActivity{
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        start();
+                        transitionAdapter.changeLayout(ui, R.layout.activity_results);
                     }
                 });
             }
@@ -104,12 +104,6 @@ public class ResultsActivity extends ManagedActivity{
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
     }
-    public void start(){
-        ConstraintSet constraintSet = new ConstraintSet();
-        constraintSet.load(this, R.layout.activity_results);
-        TransitionManager.beginDelayedTransition(ui);
-        constraintSet.applyTo(ui);
-    }
     public void textChange(){
         buffer2.end();
         updateR = new UpdateRunnable(new UpdateRunnable.Updater() {
@@ -117,8 +111,6 @@ public class ResultsActivity extends ManagedActivity{
             public void update(View view) {
                 if(Integer.valueOf(((TextView)view).getText().toString()) < (int)results[resultI]){
                     final View fview = view;
-                    //if(Integer.valueOf(((TextView)fview).getText().toString()) >= results[resultI] - 10)
-                        //updateR.refresh += 400;
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -162,5 +154,10 @@ public class ResultsActivity extends ManagedActivity{
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
         mapIntent.setPackage(getString(R.string.gmaps_package));
         startActivity(mapIntent);
+    }
+
+    @Override
+    public void trigger(View view) {
+        goHome(view);
     }
 }

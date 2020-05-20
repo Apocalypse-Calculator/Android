@@ -5,6 +5,7 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -14,6 +15,9 @@ import android.widget.ImageButton;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.zachl.restock.entities.adapters.FirebaseAdapter;
+import com.zachl.restock.entities.adapters.TransitionAdapter;
+import com.zachl.restock.entities.managers.ButtonManager;
 import com.zachl.restock.entities.managers.ColorManager;
 import com.zachl.restock.entities.managers.HazardManager;
 import com.zachl.restock.entities.managers.Manager;
@@ -29,9 +33,11 @@ public class ManagedActivity extends AppCompatActivity {
     private Manager[] managers;
     protected FirebaseAnalytics firebaseAnalytics;
     protected Intent intent;
+    protected TransitionAdapter transitionAdapter;
+    protected FirebaseAdapter firebaseAdapter;
 
     public enum Package{
-        Default(new Class[]{ViewManager.class, ColorManager.class}),
+        Default(new Class[]{ViewManager.class, ColorManager.class, ButtonManager.class}),
         All(new Class[]{ViewManager.class, ColorManager.class, HazardManager.class});
 
         Class[] contents;
@@ -43,11 +49,9 @@ public class ManagedActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        transitionAdapter = new TransitionAdapter(this);
+        firebaseAdapter = new FirebaseAdapter(this);
         adjustFontScale(getResources().getConfiguration());
-        //analyticsInit();
-    }
-    private void analyticsInit(){
-        firebaseAnalytics = FirebaseAnalytics.getInstance(this);
     }
 
     private void adjustFontScale(Configuration configuration) {
@@ -88,11 +92,15 @@ public class ManagedActivity extends AppCompatActivity {
         try {
             Constructor<?> ctor = manager.getConstructor(AppCompatActivity.class, ArrayList.class, String.class);
             Object object = ctor.newInstance(this, v, type);
-            ((HazardManager) object).setPositive(result);
+            if(object.getClass() == HazardManager.class){
+                ((HazardManager) object).setPositive(result);}
             ((Manager)object).apply();
         }
         catch(Exception e){
-            //e.printStackTrace();
+            e.printStackTrace();
         }
+    }
+    public void trigger(View view){
+        //Log.d("YES", "YES");
     }
 }

@@ -15,12 +15,13 @@ public class ExpandingButton extends AppCompatImageButton {
     private OnTouchListener expandL;
     private boolean triggered, initd;
     private UpdateRunnable updateR;
-    private BufferRunnable bufferR;
+    public BufferRunnable bufferR;
     private Triggerable triggerable;
     private float tempScale;
     public interface Triggerable{
         void trigger(final View view);
     }
+
     public ExpandingButton(Context context, ImageButton button, Triggerable triggerable) {
         super(context);
         this.triggerable = triggerable;
@@ -52,6 +53,8 @@ public class ExpandingButton extends AppCompatImageButton {
                 @Override
                 public void wake() {
                     triggerable.trigger(fview);
+                    bufferR.end();
+                    bufferR = null;
                 }
             }, 1);
             if(!initd)
@@ -78,5 +81,9 @@ public class ExpandingButton extends AppCompatImageButton {
         });
         updateR.start(view);
         this.tempScale = view.getScaleY();
+    }
+    public void end() {
+        bufferR.end();
+        bufferR = null;
     }
 }

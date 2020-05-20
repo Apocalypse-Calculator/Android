@@ -19,11 +19,16 @@ public class TransitionAdapter {
     public void changeLayout(ConstraintLayout layout, long length, int id){
         ConstraintSet constraintSet = new ConstraintSet();
         constraintSet.load(act, id);
-        constraintSet.applyTo(layout);
-
         AutoTransition autoTransition = new AutoTransition();
         autoTransition.setDuration(length);
         TransitionManager.beginDelayedTransition(layout, autoTransition);
+        constraintSet.applyTo(layout);
+    }
+    public void changeLayout(ConstraintLayout layout, int id){
+        ConstraintSet constraintSet = new ConstraintSet();
+        constraintSet.load(act, id);
+        TransitionManager.beginDelayedTransition(layout);
+        constraintSet.applyTo(layout);
     }
     public void fade(int id, float from, float to, long length){
         final ImageView img = act.findViewById(id);

@@ -49,6 +49,7 @@ public class CalculatorActivity extends ManagedActivity{
     private ArrayList<ImageView> options;
     private ArrayList<TextView> textOpts;
     private String type;
+    private View[] helps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +78,7 @@ public class CalculatorActivity extends ManagedActivity{
         answerViews = new int[]{R.id.text1, R.id.text2, R.id.text3, R.id.text4, R.id.text5};
         options = new ArrayList<>(Arrays.asList((ImageView)findViewById(R.id.size_b2), (ImageView) findViewById(R.id.size_b3)));
         textOpts = new ArrayList<>(Arrays.asList((TextView)findViewById(R.id.size2), (TextView) findViewById(R.id.size3)));
-
+        helps = new View[]{findViewById(R.id.help_size), findViewById(R.id.help), findViewById(R.id.how)};
         for(View view : options){
             view.setOnTouchListener(optionL);
         }
@@ -94,7 +95,6 @@ public class CalculatorActivity extends ManagedActivity{
             }
             optionSelect(options.get(form.metric));
         }
-
     }
 
     public void remove(){
@@ -154,6 +154,11 @@ public class CalculatorActivity extends ManagedActivity{
     }
 
     public void help(View view){
+        for(int i = 0; i < helps.length; i++){
+            if(view == helps[i]){
+                firebaseAdapter.logHelp(type, i + 1);
+            }
+        }
         Intent intent = new Intent(getApplicationContext(), PopUp.class);
         intent.putExtra(PopUp.key, type);
         intent.putExtra(PopUp.type_key, view.getContentDescription());
@@ -222,5 +227,10 @@ public class CalculatorActivity extends ManagedActivity{
         String json = prefs.getString("form" + Manager.getTypeIndex(type), "");
         CalculatorForm form = gson.fromJson(json, CalculatorForm.class);
         return form;
+    }
+
+    @Override
+    public void trigger(View view) {
+        changeImage(view);
     }
 }
